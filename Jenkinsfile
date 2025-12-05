@@ -7,7 +7,9 @@ pipeline {
     stages {
   stage('build') {
     steps {
+      dir('sample-app') {
       sh 'mvn clean install'
+      }
     }
   }
 
