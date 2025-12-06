@@ -5,6 +5,12 @@ pipeline {
         maven 'maven3'
     }
     stages {
+      stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/HarshithNA/Java-mini-project.git'
+            }
+        }
   stage('build') {
     steps {
       dir('sample-app') {
@@ -12,13 +18,6 @@ pipeline {
       }
     }
   }
-
-  stage('test') {
-    steps {
-      echo "this is test"
-    }
-  }
-
   stage('deploy') {
     steps {
       echo "this is deploy"
