@@ -9,7 +9,7 @@ pipeline {
       string(name: 'Sonar_url', defaultValue: 'http://16.171.155.243:9000', description: 'URL OF SONARQUBE')
     }
     environment {
-      SONARQUBE_URL=${params.Sonar_url}
+      SONARQUBE_URL="${params.Sonar_url}"
       SONARQUBE_TOKEN=credentials('Sonar_token')
     }
     stages {
