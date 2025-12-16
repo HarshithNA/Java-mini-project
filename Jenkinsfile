@@ -4,6 +4,9 @@ pipeline {
         jdk 'jdk17'
         maven 'maven3'
     }
+    parameters {
+      string(name: 'Tomcat_IP', defaultValue: '51.21.130.117', description: 'IP of tomcat')
+    }
     environment {
       SONARQUBE_URL='http://16.171.155.243:9000'
       SONARQUBE_TOKEN=credentials('Sonar_token')
@@ -57,7 +60,7 @@ pipeline {
                         FILE_NAME=\$(basename "\$WAR_FILE")
 
                         # Hardcoded Tomcat Server Details
-                        SERVER_IP=51.21.130.117
+                        SERVER_IP=${params.Tomcat_IP}
                         SERVER_USER=ubuntu
                         TOMCAT_DIR=/opt/tomcat/webapps
 
