@@ -5,7 +5,7 @@ pipeline {
         maven 'maven3'
     }
     environment {
-      SONARQUBE_URL='http://51.21.202.71:9000'
+      SONARQUBE_URL='http://16.171.155.243:9000'
       SONARQUBE_TOKEN=credentials('Sonar_token')
     }
     stages {
@@ -22,6 +22,20 @@ pipeline {
       }
     }
   }
+  stage('Upload to JFrog') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'jfrog-creds',
+                                                 usernameVariable: 'JFROG_USER',
+                                                 passwordVariable: 'JFROG_PASS')]) {
+                    sh '''
+                        echo "Uploading WAR to JFrog..."
+                        WAR_FILE=$(ls sample-app/target/*.war)
+                        curl -u $JFROG_USER:$JFROG_PASS -T $WAR_FILE \
+                        "https://trial0clq38.jfrog.io/artifactory/api/generic/java-project-generic-local /${JOB_NAME}-${BUILD_NUMBER}-sample.war"
+                    '''
+                }
+            }
+        }
   stage('Sonarqube Analysis') {
     steps {
       dir('sample-app') {
@@ -43,7 +57,7 @@ pipeline {
                         FILE_NAME=\$(basename "\$WAR_FILE")
 
                         # Hardcoded Tomcat Server Details
-                        SERVER_IP=16.171.241.42
+                        SERVER_IP=51.21.130.117
                         SERVER_USER=ubuntu
                         TOMCAT_DIR=/opt/tomcat/webapps
 
