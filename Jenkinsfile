@@ -6,10 +6,10 @@ pipeline {
     }
     parameters {
       string(name: 'Tomcat_IP', defaultValue: '51.21.130.117', description: 'IP of tomcat')
-      string(name: 'SONARQUBE_URL', defaultValue: 'http://16.171.155.243:9000', description: 'URL OF SONARQUBE')
+      string(name: 'Sonar_url', defaultValue: 'http://16.171.155.243:9000', description: 'URL OF SONARQUBE')
     }
     environment {
-      SONARQUBE_URL=${params.SONARQUBE_URL}
+      SONARQUBE_URL=${params.Sonar_url}
       SONARQUBE_TOKEN=credentials('Sonar_token')
     }
     stages {
