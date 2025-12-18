@@ -5,7 +5,7 @@ pipeline {
         maven 'maven3'
     }
     parameters {
-      string(name: 'Tomcat_IP', defaultValue: '51.21.130.117', description: 'IP of tomcat')
+      string(name: 'Tomcat_IP', defaultValue: '51.21.130.117', description: 'IP of Sample app')
       string(name: 'Sonar_url', defaultValue: 'http://16.171.155.243:9000', description: 'URL OF SONARQUBE')
     }
     environment {
